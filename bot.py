@@ -29,16 +29,20 @@ async def nine_nine(ctx):
     
 @bot.command(name='strava', help='')
 async def strava(ctx):
+    
+    # this is to get access token (expires every 6 hrs) and refresh token (to get new access token)
+    # need to authenticate first to get STRAVA_CODE
     token_url = 'https://www.strava.com/oauth/token'
     payload = {
         'client_id': os.getenv('STRAVA_CLIENT_ID'),
         'client_secret': os.getenv('STRAVA_CLIENT_SECRET'),
-        'code': os.getenv('STRAVA_AUTH'),
+        'code': os.getenv('STRAVA_CODE'),
         'grant_type': 'authorization_code'
     }
     response = requests.post(token_url, data=payload)
 
     # Extract the access token from the response
+    # access token required for all requests
     #access_token = response.json()['access_token']
     
     #url = "https://www.strava.com/api/v3/athlete/activities?before=1705144298&after=1673608298&per_page=30"

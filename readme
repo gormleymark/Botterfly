@@ -1,0 +1,30 @@
+Strava Autentication:
+
+http://www.strava.com/oauth/authorize?client_id=[REPLACE_WITH_YOUR_CLIENT_ID]&response_type=code&redirect_uri=http://localhost/exchange_token&approval_prompt=force&scope=read
+
+Redirect URL will contain authorization code
+
+Send a post to https://www.strava.com/oauth/token with client id, client secret and auth code from above, note auth code is single use
+
+Sample response:
+
+{
+    "token_type": "Bearer",
+    "expires_at": 1562908002,
+    "expires_in": 21600,
+    "refresh_token": "REFRESHTOKEN",
+    "access_token": "ACCESSTOKEN",
+    "athlete": {
+        "id": 123456,
+        "username": "MeowTheCat",
+        "resource_state": 2,
+        "firstname": "Meow",
+        "lastname": "TheCat",
+        "city": "",
+        "state": "",
+        "country": null,
+        ...
+    }
+}
+
+Access token expires every 6 hours, use refresh token to get a new access token
