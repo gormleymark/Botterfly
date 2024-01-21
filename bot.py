@@ -3,10 +3,12 @@ import random
 import discord  
 import requests
 from discord.ext import commands
-from dotenv import load_dotenv
+from db_connector import DatabaseConnector
 
-load_dotenv()
-TOKEN = os.getenv('DISCORD_TOKEN')
+db = DatabaseConnector()
+conn = db.Connect()
+
+TOKEN = db.GetDiscordToken()
 
 intents = discord.Intents.all()
 intents.messages = True  # Enable the messages intent
