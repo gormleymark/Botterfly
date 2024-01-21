@@ -2,11 +2,11 @@ import os
 import random
 import discord  
 import requests
+import json
 from discord.ext import commands
 from db_connector import DatabaseConnector
 
 db = DatabaseConnector()
-conn = db.Connect()
 
 TOKEN = db.GetDiscordToken()
 
@@ -14,6 +14,26 @@ intents = discord.Intents.all()
 intents.messages = True  # Enable the messages intent
 
 bot = commands.Bot(command_prefix='!', intents=intents)
+
+##
+api_url = "http://192.168.1.101:7184/api/bot/data"  # Update the URL with your actual endpoint
+access_token = "test"  # Include any necessary data in the payload
+
+# Define the data to send
+bot_data = {
+    "AccessToken": access_token,
+    # Add other data fields as needed
+}
+
+# Send a POST request to the C# API endpoint
+response = requests.post(api_url, json=bot_data)
+
+# Check the response
+if response.status_code == 200:
+    print("Data sent successfully")
+else:
+    print(f"Error: {response.status_code}, {response.text}")
+##
 
 @bot.command(name='99', help='Responds with a random quote from Brooklyn 99')
 async def nine_nine(ctx):
